@@ -2,7 +2,7 @@
 -- Sales Performance (2016-2018)
 -- ================================
 
--- Revenue and Quantity Sold by Year (2016, 2017, 2018)
+-- Revenue and Quantity Sold Grouped by Year (2016-2018)
 SELECT 
     EXTRACT(YEAR FROM so.time_order_taken) AS year,
     SUM(si.quantity) AS total_quantity,
@@ -18,8 +18,7 @@ WHERE it.item_id NOT IN (28, 3, 50) OR pr.product_id NOT IN (13)
 GROUP BY year
 ORDER BY year ASC;
 
--- Summary for year 2016-2018
--- Overall total quantity sold and total revenue generated
+-- Overall Revenue and Quantity Sold (2016-2018)
 WITH sales_summary AS (
     SELECT
         si.item_id,
@@ -40,13 +39,13 @@ SELECT
     SUM(total_revenue) AS total_revenue
 FROM sales_summary;
 
--- Earliset and Latest Order Date
+-- Earliset and Latest Order Date (January 2016 - December 2018)
 SELECT
     MIN(time_order_taken) AS earliest_order_date,
     MAX(time_order_taken) AS latest_order_date
 FROM sales_order;
 
---Revenue Trend by Year and Quarter (2016, 2017, 2018)
+--Revenue Trend by Year and Quarter (2016-2018)
 SELECT
     EXTRACT(QUARTER FROM so.time_order_taken) AS quarter,
     EXTRACT(YEAR FROM so.time_order_taken) AS year,
@@ -63,7 +62,7 @@ JOIN product AS pr
 GROUP BY quarter, year
 ORDER BY year ASC, quarter ASC;
 
--- Product Sales Performance Year 2016-2018
+-- Product Sales Performance (2016-2018)
 SELECT
     pr.name AS product_name,
     SUM(si.quantity * it.price) AS total_revenue -- Total sales revenue per product
