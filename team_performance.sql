@@ -17,7 +17,9 @@ FROM sales_person AS sp
         ON si.item_id = it.item_id
     LEFT JOIN product AS pr
     ON it.product_id = pr.product_id
-WHERE it.item_id NOT IN (28, 3, 50) OR pr.product_id NOT IN (13)
+WHERE so.sales_order_id IN (
+    SELECT DISTINCT sales_order_id FROM sales_item
+)
 GROUP BY sp_id, first_name, last_name
 ORDER BY total_orders DESC;
 
@@ -35,7 +37,9 @@ LEFT JOIN item AS it
     ON si.item_id = it.item_id
 LEFT JOIN product AS pr
     ON it.product_id = pr.product_id
-WHERE it.item_id NOT IN (28, 3, 50) OR pr.product_id NOT IN (13)
+WHERE so.sales_order_id IN (
+    SELECT DISTINCT sales_order_id FROM sales_item
+)
 GROUP BY sp.sales_person_id, sp.first_name, sp.last_name
 ORDER BY avg_order_value DESC;
 
@@ -51,7 +55,9 @@ LEFT JOIN item AS it
     ON si.item_id = it.item_id
 LEFT JOIN product AS pr
     ON it.product_id = pr.product_id
-WHERE it.item_id NOT IN (28, 3, 50) OR pr.product_id NOT IN (13);
+WHERE so.sales_order_id IN (
+    SELECT DISTINCT sales_order_id FROM sales_item
+);
 -- 86 total orders
 
 -- Revenue Trend by Salesperson per Year & Month (2016-2018)
@@ -69,6 +75,8 @@ FROM sales_person AS sp
         ON si.item_id = it.item_id
     LEFT JOIN product AS pr
     ON it.product_id = pr.product_id
-WHERE it.item_id NOT IN (28, 3, 50) OR pr.product_id NOT IN (13)
+WHERE so.sales_order_id IN (
+    SELECT DISTINCT sales_order_id FROM sales_item
+)
 GROUP BY sales_person, year, month
 ORDER BY year ASC;
