@@ -1,5 +1,5 @@
 -- ========================================
--- Data Investigation & Anomaly Detection
+-- Data Investigation & Validation
 -- ========================================
 
 -- Investigating rows from customer table with NULL in sales_order table.
