@@ -1,12 +1,12 @@
 # 📌 Sales Data Analysis - Power BI & SQL
 
 ## 📖 Overview
-A dynamic sales analytics project using SQL for data cleaning and Power BI for visualization. This project provides insights into sales performance, team efficiency, and customer behavior.
+A dynamic sales analytics project leveraging SQL for database creation, data cleaning, and key insights extraction, followed by Power BI for visualization. This project offers valuable insights into sales performance, team efficiency, and customer behavior.
 
 ## 🛠️ Tools Used
 
-- SQL – Data Cleaning & Validation  
-- Power BI – Dashboard Visualization  
+- SQL – Database creation, Data Cleaning, and Validation
+- Power BI – Interactive Dashboard Visualization  
 - DAX – Dynamic Measures & Calculations  
 
 ## 📂 Dataset
