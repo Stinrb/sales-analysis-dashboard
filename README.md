@@ -15,7 +15,8 @@ A dynamic sales analytics project leveraging SQL for database creation, data cle
 - Salespersons: Performance & contributions  
 - Products: Inventory & sales tracking  
 - Items: Individual product variations  
-- Product Types: Product classification  
+- Product Types: Product classification
+- Sales Items – Line-item details for each order
 
 ## 🔎 Data Cleaning & Validation
 - Removed duplicates  
