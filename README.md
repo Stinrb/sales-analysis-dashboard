@@ -26,7 +26,7 @@ A dynamic sales analytics project using SQL for data cleaning and Power BI for v
 ## 📊 Power BI Dashboard
 - Sales Performance: Revenue trends & top products  
 - Team Performance: Salesperson leaderboard & efficiency  
-- Customer Insights: Segmentation & lifetime value  
+- Customer Insights: Segmentation & product popularity  
 
 ## 📥 How to Use
 1. Run SQL scripts for data preparation  
