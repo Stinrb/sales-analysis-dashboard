@@ -5,7 +5,7 @@ A dynamic sales analytics project leveraging SQL for database creation, data cle
 
 ## 🛠️ Tools Used
 
-- SQL – Database creation, Data Cleaning, and Validation
+- SQL – Database Creation, Data Cleaning, and Validation
 - Power BI – Interactive Dashboard Visualization  
 - DAX – Dynamic Measures & Calculations  
 
