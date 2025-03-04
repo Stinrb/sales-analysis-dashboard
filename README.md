@@ -119,7 +119,6 @@ A dynamic sales analytics project using SQL for data cleaning and Power BI for v
 - During data validation, several inconsistencies were found and addressed:
 
 **1️. Missing or Orphaned Records**
-Table	Issue Found	Resolution
 - Customer Table
   - Issue Found: 1 orphaned customer (never placed an order)
   - Removed Christopher Robinson (customer_id 20)
