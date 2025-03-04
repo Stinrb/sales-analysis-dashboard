@@ -1,23 +1,13 @@
-/* 
-=============================================
- Data Cleaning and Validation - SQL Script
-=============================================
-
- This script performs:
- 1. Duplicate detection
- 2. NULL and missing value checks
- 3. Standardization checks (Accidental spaces, Email format, Phone format)
- 4. Integrity check (Unlinked records)
-
- Author: Justin (Stinrb)
-*/
+-- ================================
+-- Data Cleaning and Validation
+-- ================================
 
 -- ===================================================
--- 🔹 CUSTOMER TABLE - Data Cleaning & Validation
+-- CUSTOMER TABLE - Data Cleaning & Validation
 -- ===================================================
 
 
--- 1️⃣ Checking for Duplicates
+-- 1️. Checking for Duplicates
 SELECT *
 FROM customer
 WHERE customer_id IN (
@@ -40,7 +30,7 @@ FROM customer_duplicates
 WHERE row_num > 1;
 
 
--- 2️⃣ Checking for NULL or Missing Values
+-- 2️. Checking for NULL or Missing Values
 SELECT *
 FROM customer
 WHERE COALESCE(first_name, '') = '' 
@@ -57,7 +47,7 @@ WHERE COALESCE(first_name, '') = ''
    OR date_entered IS NULL;
 
 
--- 3️⃣ Checking if Data is Standardized (Accidental spaces & Format)
+-- 3️. Checking if Data is Standardized (Accidental spaces & Format)
 SELECT  
        first_name, TRIM(first_name) AS trimmed_first_name,
        CASE 
@@ -95,21 +85,21 @@ SELECT *,
 FROM customer;
 
 
--- 4️⃣ Integrity Check: Customers Without Sales Orders
+-- 4️. Integrity Check: Customers Without Sales Orders
 SELECT c.*
 FROM customer AS c
 LEFT JOIN sales_order AS so ON c.customer_id = so.customer_id
 WHERE so.sales_order_id IS NULL;
 
--- ⚠️ Found 1 orphaned customer: "Christopher Robinson" (customer_id 20)
+-- Found 1 orphaned customer: "Christopher Robinson" (customer_id 20)
 -- This customer has no associated sales orders.
 
 
 -- ===================================================
--- 🔹 SALES_PERSON TABLE - Data Cleaning & Validation
+-- SALES_PERSON TABLE - Data Cleaning & Validation
 -- ===================================================
 
--- 1️⃣ Checking for Duplicates
+-- 1️. Checking for Duplicates
 SELECT *
 FROM sales_person
 WHERE sales_person_id IN (
@@ -130,7 +120,7 @@ SELECT *
 FROM sales_person_duplicates 
 WHERE row_num > 1;
 
--- 2️⃣ Checking for NULL or Missing Values
+-- 2️. Checking for NULL or Missing Values
 SELECT *
 FROM sales_person
 WHERE COALESCE(first_name, '') = '' 
@@ -145,7 +135,7 @@ WHERE COALESCE(first_name, '') = ''
    OR sex IS NULL 
    OR date_hired IS NULL;
 
--- 3️⃣ Checking if Data is Standardized (Accidental spaces & Format)
+-- 3️. Checking if Data is Standardized (Accidental spaces & Format)
 SELECT  
        first_name, TRIM(first_name) AS trimmed_first_name,
        CASE WHEN first_name != TRIM(first_name) THEN 'Accidental Space' ELSE 'No Space' END AS first_name_issues,
@@ -160,21 +150,21 @@ WHERE first_name != TRIM(first_name)
     OR last_name != TRIM(last_name) 
     OR email != TRIM(email);
 
--- 4️⃣ Integrity Check: Salespersons Without Sales Orders
+-- 4️. Integrity Check: Salespersons Without Sales Orders
 SELECT sp.*
 FROM sales_person AS sp
 LEFT JOIN sales_order AS so ON sp.sales_person_id = so.sales_person_id
 WHERE so.sales_order_id IS NULL;
 
--- ⚠️ Found 1 orphaned sales_person: "Jessica Thompson" (sales_person_id 5)
+-- Found 1 orphaned sales_person: "Jessica Thompson" (sales_person_id 5)
 -- This salesperson has no associated sales orders.
 
 
 -- ===================================================
--- 🔹 PRODUCT_TYPE TABLE - Data Cleaning & Validation
+-- PRODUCT_TYPE TABLE - Data Cleaning & Validation
 -- ===================================================
 
--- 1️⃣ Checking for Duplicates
+-- 1️. Checking for Duplicates
 SELECT *
 FROM product_type
 WHERE product_type_id IN (
@@ -183,13 +173,13 @@ WHERE product_type_id IN (
     GROUP BY product_type_id
     HAVING COUNT(*) > 1);
 
--- 2️⃣ Checking for NULL or Missing Values
+-- 2️. Checking for NULL or Missing Values
 SELECT *
 FROM product_type
 WHERE COALESCE(name, '') = '';
 
 
--- 3️⃣ Checking if Data is Standardized (Accidental spaces & Format)
+-- 3️. Checking if Data is Standardized (Accidental spaces & Format)
 SELECT  
        name, TRIM(name) AS trimmed_name,
        CASE 
@@ -200,7 +190,7 @@ FROM product_type
 WHERE name != TRIM(name);
 
 
--- 4️⃣ Integrity Check: Product Types Without Products
+-- 4️. Integrity Check: Product Types Without Products
 SELECT *
 FROM product_type AS pt
     LEFT JOIN product AS pr
@@ -211,10 +201,10 @@ WHERE pr.product_type_id IS NULL;
 
 
 -- ===================================================
--- 🔹 PRODUCT TABLE - Data Cleaning & Validation
+-- PRODUCT TABLE - Data Cleaning & Validation
 -- ===================================================
 
--- 1️⃣ Checking for Duplicates
+-- 1️. Checking for Duplicates
 SELECT *
 FROM product
 WHERE product_id IN (
@@ -234,7 +224,7 @@ SELECT *
 FROM product_duplicates
 WHERE row_num > 1;
 
--- 2️⃣ Checking for NULL or Missing Values
+-- 2️. Checking for NULL or Missing Values
 SELECT *
 FROM product
 WHERE COALESCE(name, '') = ''
@@ -242,7 +232,7 @@ WHERE COALESCE(name, '') = ''
     OR COALESCE(description, '') = ''
     OR product_type_id IS NULL;
 
--- 3️⃣ Checking if Data is Standardized (Accidental spaces & Format)
+-- 3️. Checking if Data is Standardized (Accidental spaces & Format)
 SELECT  
        name, TRIM(name) AS trimmed_name,
        CASE WHEN name != TRIM(name) THEN 'Accidental Space' ELSE 'No Space' END AS name_issues,
@@ -272,7 +262,7 @@ SELECT
 FROM product
 WHERE description LIKE '%  %' OR supplier LIKE '%  %';
 
--- 4️⃣ Integrity Check: Products Without Items
+-- 4️. Integrity Check: Products Without Items
 -- Checking for orphaned products (products that have no associated items).  
 -- A product without an item could mean it was never sold, discontinued, or has missing data.  
 SELECT *
@@ -281,15 +271,15 @@ LEFT JOIN item AS i
 ON p.product_id = i.product_id
 WHERE i.product_id IS NULL;
 
--- ⚠️ Found 1 orphaned product, reducing products count from 13 to 12 in the product table.
+-- Found 1 orphaned product, reducing products count from 13 to 12 in the product table.
 -- product_id 13 has no associated items in the item table.
 
 
 -- ===================================================
--- 🔹 ITEM TABLE - Data Cleaning & Validation
+-- ITEM TABLE - Data Cleaning & Validation
 -- ===================================================
 
--- 1️⃣ Checking for Duplicates
+-- 1️. Checking for Duplicates
 SELECT *
 FROM item
 WHERE item_id IN (
@@ -309,7 +299,7 @@ SELECT *
 FROM item_duplicates
 WHERE row_num > 1;
 
--- 2️⃣ Checking for NULL or Missing Values
+-- 2️. Checking for NULL or Missing Values
 SELECT *
 FROM item
 WHERE product_id IS NULL
@@ -318,7 +308,7 @@ WHERE product_id IS NULL
     OR COALESCE(picture, '') = ''
     OR price IS NULL;
 
--- 3️⃣ Checking if Data is Standardized (Accidental spaces & Format)
+-- 3️. Checking if Data is Standardized (Accidental spaces & Format)
 SELECT  
        size, TRIM(size) AS trimmed_size,
        CASE WHEN size != TRIM(size) THEN 'Accidental Space' ELSE 'No Space' END AS size_issues,
@@ -328,7 +318,7 @@ SELECT
 FROM item
 WHERE size != TRIM(size) OR color != TRIM(color);
 
--- 4️⃣ Integrity Check: Items Without Records in Sales Item Table
+-- 4️. Integrity Check: Items Without Records in Sales Item Table
 -- Checking for orphaned items (items that have no associated sales records).
 -- An item without a sales record could mean it was never sold, discontinued, or has missing data.
 SELECT *
@@ -337,15 +327,15 @@ LEFT JOIN sales_item AS si
 ON i.item_id = si.item_id
 WHERE si.item_id IS NULL;
 
--- ⚠️ Found 3 orphaned items, reducing items count from 50 to 47 in the item table.
+-- Found 3 orphaned items, reducing items count from 50 to 47 in the item table.
 -- item_id 28, 3, 50 NULL in sales_item table.
 
 
 -- ===================================================
--- 🔹 SALES_ORDER TABLE - Data Cleaning & Validation
+-- SALES_ORDER TABLE - Data Cleaning & Validation
 -- ===================================================
 
--- 1️⃣ Checking for Duplicates
+-- 1️. Checking for Duplicates
 SELECT *
 FROM sales_order
 WHERE sales_order_id IN (
@@ -367,7 +357,7 @@ SELECT *
 FROM sales_order_duplicates
 WHERE row_num > 1;
 
--- 2️⃣ Checking for NULL or Missing Values
+-- 2️. Checking for NULL or Missing Values
 SELECT *
 FROM sales_order
 WHERE customer_id IS NULL
@@ -380,7 +370,7 @@ WHERE customer_id IS NULL
     OR credit_card_secret_code IS NULL
     OR COALESCE(name_on_card, '') = '';
 
--- 3️⃣ Checking if Data is Standardized (Accidental spaces & Format)
+-- 3️. Checking if Data is Standardized (Accidental spaces & Format)
 SELECT  
        purchase_order_number, TRIM(purchase_order_number) AS trimmed_purchase_order_number,
        CASE WHEN purchase_order_number != TRIM(purchase_order_number) THEN 'Accidental Space' ELSE 'No Space' END AS purchase_order_number_issues,
@@ -395,7 +385,7 @@ WHERE purchase_order_number != TRIM(purchase_order_number)
     OR credit_card_number != TRIM(credit_card_number) 
     OR name_on_card != TRIM(name_on_card);
 
--- 4️⃣ Integrity Check: Sales Orders Without Sales Items
+-- 4️. Integrity Check: Sales Orders Without Sales Items
 -- Checking for orphaned sales orders (sales orders that have no associated sales items).
 -- A sales order not linked to any sales items could mean it was never fulfilled, or has missing data.
 SELECT *
@@ -411,15 +401,15 @@ WHERE so.sales_order_id NOT IN (
     SELECT DISTINCT sales_order_id
     FROM sales_item);
 
--- ⚠️ Found 14 orphaned sales orders (invalid orders), reducing sales orders count from 100 to 86 in the sales_order table.
+-- Found 14 orphaned sales orders (invalid orders), reducing sales orders count from 100 to 86 in the sales_order table.
 -- sales_order_id 12, 16, 18, 19, 30, 31, 52, 62, 89, 93, 95, 96, 97, 100 NULL in sales_item table
 
 
 -- ===================================================
--- 🔹 SALES_ITEM TABLE - Data Cleaning & Validation
+-- SALES_ITEM TABLE - Data Cleaning & Validation
 -- ===================================================
 
--- 1️⃣ Checking for Duplicates
+-- 1️. Checking for Duplicates
 SELECT *
 FROM sales_item
 WHERE sales_item_id IN (
@@ -439,7 +429,7 @@ SELECT *
 FROM sales_item_duplicates
 WHERE row_num > 1;
 
--- 2️⃣ Checking for NULL or Missing Values
+-- 2️. Checking for NULL or Missing Values
 SELECT *
 FROM sales_item
 WHERE item_id IS NULL
@@ -449,7 +439,7 @@ WHERE item_id IS NULL
     OR taxable IS NULL
     OR sales_tax_rate IS NULL;
 
--- 3️⃣ Checking if Data is Standardized (Accidental spaces & Format)
+-- 3️. Checking if Data is Standardized (Accidental spaces & Format)
 SELECT  
        quantity, TRIM(quantity) AS trimmed_quantity,
        CASE WHEN quantity != TRIM(quantity) THEN 'Accidental Space' ELSE 'No Space' END AS quantity_issues,
@@ -460,7 +450,7 @@ FROM sales_item
 WHERE quantity != TRIM(quantity) 
     OR discount != TRIM(discount);
 
--- 4️⃣ Integrity Check: Sales Items Without Items or Sales Orders
+-- 4️. Integrity Check: Sales Items Without Items or Sales Orders
 -- Checking for orphaned sales items (sales items that have no associated items or sales orders).
 SELECT *
 FROM sales_item AS si
