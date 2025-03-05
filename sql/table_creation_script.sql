@@ -1,3 +1,8 @@
+-- ==================================================
+-- Table Creation Script for Sales Analysis Dashboard
+-- Database Name: sales_db
+-- ==================================================
+
 -- Create customer table
 CREATE TABLE customer (
     first_name VARCHAR(30) NOT NULL,
