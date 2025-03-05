@@ -22,7 +22,7 @@ WITH customer_duplicates AS (
     SELECT *, 
            ROW_NUMBER() OVER (PARTITION BY first_name, last_name, email, company, street, city, state, 
                               zip, phone, birth_date, sex, date_entered 
-                              ORDER BY last_name) AS row_num
+                              ORDER BY customer_id) AS row_num
     FROM customer
 )
 SELECT *
@@ -113,7 +113,7 @@ WITH sales_person_duplicates AS (
     SELECT *, 
            ROW_NUMBER() OVER (PARTITION BY first_name, last_name, email, street, city, state, zip, 
                               phone, birth_date, sex, date_hired 
-                              ORDER BY first_name) AS row_num
+                              ORDER BY sales_person_id) AS row_num
     FROM sales_person
 )
 SELECT * 
