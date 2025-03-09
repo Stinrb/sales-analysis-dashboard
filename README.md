@@ -147,5 +147,5 @@ A dynamic sales analytics project leveraging SQL for database creation, data cle
 **3️. Dataset Limitations**
 - **Small Sample Size** – The dataset contains only 86 valid sales orders over a span of 3 years (2016-2018), limiting the ability to generalize trends or make accurate predictions.
 - **Limited Salesperson & Customer Pool** – Only 4 active salespersons and 19 customers are included, which may not fully represent real-world business diversity.
-- **No Seasonal or Promotional Data** – The dataset lacks information on promotions, discounts, or seasonal campaigns, which are crucial factors in real-world sales analysis.
+- **No Seasonal or Promotional Data** – The dataset lacks information on promotions or seasonal campaigns, which are crucial factors in real-world sales analysis.
 
