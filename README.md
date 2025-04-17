@@ -5,34 +5,34 @@ A dynamic sales analytics project leveraging SQL for database creation, data cle
 
 ## 🛠️ Tools Used
 
-- SQL – Database Creation, Data Cleaning, and Validation
-- Power BI – Interactive Dashboard Visualization  
-- DAX – Dynamic Measures & Calculations  
+- SQL (PostgreSQL) – Database Creation, Data Cleaning, and Validation.
+- Power BI – Interactive Dashboard Visualization.  
+- DAX – Dynamic Measures & Calculations.  
 
 ## 📂 Dataset
-- Customers: Personal details & demographics  
-- Sales Orders: Order details & revenue  
-- Salespersons: Performance & contributions  
-- Products: Inventory & sales tracking  
-- Items: Individual product variations  
-- Product Types: Product classification
-- Sales Items – Line-item details for each order
+- Customers: Personal details & demographics.  
+- Sales Orders: Order details & revenue. 
+- Salespersons: Performance & contributions.  
+- Products: Inventory & sales tracking.  
+- Items: Individual product variations. 
+- Product Types: Product classification.
+- Sales Items – Line-item details for each order.
 
 ## 🔎 Data Cleaning & Validation
-- Removed duplicates  
-- Handled NULL/missing values  
-- Standardized formats  
-- Ensured data integrity  
+- Removed duplicates.  
+- Handled NULL/missing values.  
+- Standardized formats.  
+- Ensured data integrity.  
 
 ## 📊 Power BI Dashboard
-- Sales Performance: Revenue trends & top products  
-- Team Performance: Salesperson leaderboard & efficiency  
-- Customer Insights: Segmentation & product popularity  
+- Sales Performance: Revenue trends & top products.  
+- Team Performance: Salesperson leaderboard & efficiency.  
+- Customer Insights: Segmentation & product popularity.  
 
 ## 📥 How to Use
-1. Run SQL scripts for data preparation  
-2. Import cleaned data into Power BI  
-3. Explore the interactive dashboard  
+1. Run SQL scripts for data preparation.  
+2. Import cleaned data into Power BI.  
+3. Explore the interactive dashboard.  
 
 ## 📈 Key Insights & Findings
 ### 🛍️ Sales Trends & Performance (2016-2018)
@@ -121,24 +121,24 @@ A dynamic sales analytics project leveraging SQL for database creation, data cle
 
 **1️. Missing or Orphaned Records**
 - Customer Table
-  - Issue Found: 1 orphaned customer (never placed an order)
-  - Removed Christopher Robinson (customer_id 20)
+  - Issue Found: 1 orphaned customer (never placed an order).
+  - Removed Christopher Robinson (customer_id 20).
   
 - Salesperson Table
-  - Issue Found: 1 orphaned salesperson (no sales made)
-  - Resolution: Removed Jessica Thompson (sales_person_id 5)
+  - Issue Found: 1 orphaned salesperson (no sales made).
+  - Resolution: Removed Jessica Thompson (sales_person_id 5).
     
 - Product Table
-  - Issue Found: 1 product with no associated items (discontinued)
-  - Resolution: Removed product_id 13
+  - Issue Found: 1 product with no associated items (discontinued).
+  - Resolution: Removed product_id 13.
     
 - Item Table
-  - Issue Found: 3 orphaned items (never sold)
-  - Resolution: Removed item_id 28, 3, 50
+  - Issue Found: 3 orphaned items (never sold).
+  - Resolution: Removed item_id 28, 3, 50.
     
 - Sales Order Table
-  - Issue Found: 14 sales_order_id with no sales item record (invalid orders)
-  - Resolution: Removed sales_order_id: 12, 16, 18, 19, 30, 31, 52, 62, 89, 93, 95, 96, 97, 100 
+  - Issue Found: 14 sales_order_id with no sales item record (invalid orders).
+  - Resolution: Removed sales_order_id: 12, 16, 18, 19, 30, 31, 52, 62, 89, 93, 95, 96, 97, 100. 
 
 **2️. Unaffected Tables**
 - Product Type – No inconsistencies found.  
